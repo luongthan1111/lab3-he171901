@@ -3,17 +3,36 @@ import { useSearchParams } from 'react-router-dom';
 import { products } from '../data/products';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
-import SortFilter from '../components/SortFilter';
 import Pagination from '../components/Pagination';
 import ProductItem from '../components/ProductItem';
 
 const ProductList = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get('keyword') || '';
   const category = searchParams.get('category') || '';
   const sort = searchParams.get('sort') || '';
   const currentPage = parseInt(searchParams.get('page')) || 1;
   const productsPerPage = 3;
+
+  const sortOptions = [
+    { value: '', label: 'Mặc định' },
+    { value: 'price-asc', label: 'Giá: Thấp đến cao' },
+    { value: 'price-desc', label: 'Giá: Cao đến thấp' },
+    { value: 'name-asc', label: 'Tên: A đến Z' },
+    { value: 'name-desc', label: 'Tên: Z đến A' }
+  ];
+
+  const handleSortChange = (e) => {
+    const newParams = new URLSearchParams(searchParams);
+    const selectedSort = e.target.value;
+    
+    if (selectedSort) {
+      newParams.set('sort', selectedSort);
+    } else {
+      newParams.delete('sort');
+    }
+    setSearchParams(newParams);
+  };
 
   const filteredProducts = useMemo(() => {
     let result = products.filter(product => {
@@ -57,7 +76,21 @@ const ProductList = () => {
       <div className="filters">
         <SearchBar />
         <CategoryFilter />
-        <SortFilter />
+        <div className="sort-filter">
+          <label htmlFor="sort-select">Sắp xếp theo:</label>
+          <select
+            id="sort-select"
+            value={sort}
+            onChange={handleSortChange}
+            className="sort-select"
+          >
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="total-products">
