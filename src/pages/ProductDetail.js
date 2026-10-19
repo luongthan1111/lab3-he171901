@@ -24,8 +24,8 @@ const ProductDetail = () => {
     <div className="product-detail">
       <h1>Chi tiết sản phẩm</h1>
       <div className="product-detail-card">
+        <h2 className="product-name">{product.name}</h2>
         <p><strong>ID:</strong> {product.id}</p>
-        <p><strong>Tên:</strong> {product.name}</p>
         <p><strong>Danh mục:</strong> {product.category}</p>
         <p><strong>Giá:</strong> {product.price.toLocaleString('vi-VN')} đ</p>
         <p><strong>Mô tả:</strong> {product.description}</p>

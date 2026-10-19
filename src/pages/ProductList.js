@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { products } from '../data/products';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
 import Pagination from '../components/Pagination';
-import ProductItem from '../components/ProductItem';
 
 const ProductList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -101,11 +101,34 @@ const ProductList = () => {
         <p className="no-products">Không có sản phẩm nào.</p>
       ) : (
         <>
-          <div className="products-grid">
-            {displayedProducts.map(product => (
-              <ProductItem key={product.id} product={product} />
-            ))}
-          </div>
+          <table className="products-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tên sản phẩm</th>
+                <th>Danh mục</th>
+                <th>Giá</th>
+                <th>Mô tả</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {displayedProducts.map(product => (
+                <tr key={product.id}>
+                  <td>{product.id}</td>
+                  <td>{product.name}</td>
+                  <td>{product.category}</td>
+                  <td>{product.price.toLocaleString('vi-VN')} đ</td>
+                  <td>{product.description}</td>
+                  <td>
+                    <Link to={`/products/${product.id}`} className="btn">
+                      Xem chi tiết
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
           <Pagination totalPages={totalPages} currentPage={currentPage} />
         </>
