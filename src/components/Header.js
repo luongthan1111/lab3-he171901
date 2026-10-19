@@ -5,13 +5,13 @@ const Header = () => {
   return (
     <nav className="header">
       <div className="nav-container">
-        <h1>Product Management</h1>
+        <h1>ProductStore</h1>
         <ul className="nav-menu">
           <li>
-            <Link to="/">Trang chủ</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/products">Sản phẩm</Link>
+            <Link to="/products">Products</Link>
           </li>
         </ul>
       </div>

@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   return (
     <div className="home">
-      <h1>Chào mừng đến với Product Management</h1>
-      <p>Khám phá và quản lý danh mục sản phẩm của chúng tôi</p>
+      <h1>Welcome to ProductStore</h1>
+      <p>Mange and element products for your needs</p>
       <Link to="/products" className="btn">
-        Xem Sản phẩm
+        view products
       </Link>
     </div>
   );
