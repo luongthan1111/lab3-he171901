@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 const SearchBar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchKeyword, setSearchKeyword] = useState(searchParams.get('keyword') || '');
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  useEffect(() => {
     const newParams = new URLSearchParams(searchParams);
     if (searchKeyword.trim()) {
       newParams.set('keyword', searchKeyword);
@@ -15,14 +14,14 @@ const SearchBar = () => {
     }
     newParams.set('page', '1');
     setSearchParams(newParams);
-  };
+  }, [searchKeyword]);
 
   const handleChange = (e) => {
     setSearchKeyword(e.target.value);
   };
 
   return (
-    <form onSubmit={handleSearch} className="search-bar">
+    <div className="search-bar">
       <input
         type="text"
         placeholder="Tìm kiếm sản phẩm:"
@@ -30,8 +29,7 @@ const SearchBar = () => {
         onChange={handleChange}
         className="search-input"
       />
-      <button type="submit" className="btn">Tìm kiếm</button>
-    </form>
+    </div>
   );
 };
 

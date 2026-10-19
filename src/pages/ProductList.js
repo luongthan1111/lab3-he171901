@@ -41,6 +41,18 @@ const ProductList = () => {
       return matchesKeyword && matchesCategory;
     });
 
+    // Sort to prioritize products that start with the keyword
+    if (keyword) {
+      result = [...result].sort((a, b) => {
+        const aStartsWith = a.name.toLowerCase().startsWith(keyword.toLowerCase());
+        const bStartsWith = b.name.toLowerCase().startsWith(keyword.toLowerCase());
+        
+        if (aStartsWith && !bStartsWith) return -1;
+        if (!aStartsWith && bStartsWith) return 1;
+        return 0;
+      });
+    }
+
     // Apply sorting
     if (sort) {
       result = [...result].sort((a, b) => {
